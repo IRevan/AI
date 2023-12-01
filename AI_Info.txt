@@ -1,0 +1,224 @@
+arXiv - 정식 퍼블리케이션 되지 않은 논문을 게시하는 사이트
+google scholar - 해외 논문 검색 사이트
+dbpia - 국내 논문 사이트
+DACON - 인공지능 대회
+
+
+Backend AI
+llama
+RouGZ
+Fine-Tuning
+선형대수학, Matrix 정말 중요
+행렬계산의 오차
+Graph
+Ranking Algorithm
+abstractive
+extractive
+G=(V.E):  V=Vertex, E=Edge
+
+
+doker, kubernetes, aws
+https://www.samsungsds.com/kr/insights/220222_kubernetes1.html
+
+LLM Benchmark
+docker swarm
+
+https://rk1993.tistory.com/
+https://velog.io/@changhtun1
+https://wikidocs.net/book/10740
+https://wikidocs.net/book/6353
+https://wikidocs.net/
+https://konlpy.org/en/latest/
+ttps://github.com/bab2min/kiwipiepy
+
+
+
+09월 15일 수업에서 진행한 chroma DB를 활용하여,
+
+ 자신이 관심을 가지고 있는 텍스트를 색인 & 검색하는 코드를 완성하기.
+
+-텍스트의 종류들: 뉴스기사, 학교 정보, 논문초록, 특허, 영화리뷰, 게임리뷰, 블로그글 등
+
+-파일유형: hwp, txt, pdf 등의 file 유형에 대해 시도해보기
+
+-텍스트의 경우 전처리를 하여 색인하는 것을 추천
+
+Vector Database의 배경 및 Top 제품군 비교
+배경 및 필요성: https://hotorch.tistory.com/407
+비교1: https://steemit.com/hive-137029/@anpigon/402
+비교2: https://hotorch.tistory.com/406
+chroma 사이트:
+https://github.com/chroma-core/chroma
+https://docs.trychroma.com/usage-guide
+
+Chroma DB Tutorial 및 사용해보기
+[빵형 Tutorial 동영상] https://www.youtube.com/watch?v=7WCRhW1Z8NI
+
+자기 디렉토리의 text 색인 & 검색해보기 [코드 설명 & 배포]
+유료 OpenAI임베딩사용
+무료 HF 임베딩사용 [실습]
+Text파일이 존재하는 Directory색인해보기
+PDF파일이 존재하는 Directory색인해보기 (숙제)
+질의 & 응답
+
+OpenAI ChatGPT 3.5기반 학교 QA 봇 구현 시도 PPT (사례 소개)
+
+
+
+1. 구글 코랩 사용법 숙지
+
+  - 구글 코랩 소개페이지: https://colab.research.google.com/notebooks/welcome.ipynb
+
+  - 외부데이터: 로컬파일, 드라이브 등: https://colab.research.google.com/notebooks/io.ipynb
+
+  - 딥러닝(텍스트분류) 따라해보기: https://www.tensorflow.org/hub/tutorials/tf2_text_classification?hl=kohttps://www.tensorflow.org/hub/tutorials/tf2_text_classification?hl=ko
+
+
+
+2. 자신이 crawling한 데이터를 Chroma를 이용해 색인 및 검색해보기
+
+  - 자신의 query에 맞는 문서가 검색되는지 확인
+
+  - 임베딩을 교체해서 성능테스트 해보기 (영어? 한글?)
+
+
+
+3. 파이썬 가상환경 (window, linux, 아나콘다)
+
+  - https://dojang.io/mod/page/view.php?id=2470
+
+  - https://homubee.tistory.com/38
+
+  - Youtube 동영상: https://www.youtube.com/watch?v=o_vKT80BBkw
+
+
+
+4. 도커란? 쿠버네티스란?
+
+  - https://velog.io/@hokim/%EC%B9%9C%EC%A0%88%ED%95%9C-%EB%8F%84%EC%BB%A4-%EC%95%88%EB%82%B4%EC%84%9C-1.-%EB%8F%84%EC%BB%A4-%EA%B8%B0%EB%B3%B8-%EA%B0%9C%EB%85%90
+
+  -  https://aws.amazon.com/ko/compare/the-difference-between-kubernetes-and-docker/
+
+
+
+1. 이미지 처리 pillow (PIL) 설치 및 사용예제 실습
+
+  - 이미지 불러오기
+
+  - 이미지 크기 변경 (+리샘플링 옵션)
+
+  - 이미지 자르기 (crop)
+
+  - 이미지 회전 (rotate)
+
+  - 이미지 상하, 좌우대칭 (flip)
+
+  - 이미지 필터링 (blur, contour, detail, smooth, etc.)
+
+  - 이미지 합치기
+
+  - 이미지 저장
+
+  - 이미지를 바이트배열로 변환 하기
+
+  - 넘파이(numpy)배열을 이미지로 변환하기
+
+
+
+  *참고링크
+
+  https://wikidocs.net/153081
+
+  https://wikidocs.net/213022
+
+  https://pillow.readthedocs.io/en/stable/handbook/tutorial.html
+
+  https://www.geeksforgeeks.org/python-pillow-tutorial/
+
+
+
+2. 음성 파일 처리 라이브러리 써보기
+
+   - 음성파일 재생(play)해보기
+
+   - 음성파일의 메타정보 출력해보기 (샘플링, 초/시간)
+
+   - 음성파일 변환해보기 (44kHz --> 22kHz )
+
+   - 음성파형 (wav) 그려보기
+
+   - 음성파일을 프리에변환 (fourier transform) 및 스펙트로그램(spectrogram) 시각화해보기
+
+   - 음성파일 잘라서 저장하기
+
+
+
+   *참고링크
+
+   - https://colinch4.github.io/2023-09-05/15-44-35-651697/
+
+   - https://panggu15.github.io/basic/sound_anal/
+
+   - https://jonhyuk0922.tistory.com/114
+
+   - https://kaen2891.tistory.com/38
+
+   - https://somjang.tistory.com/entry/PythonMac%EC%97%90%EC%84%9C-python%EC%9C%BC%EB%A1%9C-mp3%ED%8C%8C%EC%9D%BC%EC%9D%84-wav%EB%A1%9C-%EB%B3%80%ED%99%98%ED%95%98%EA%B8%B0feat-homebrew
+
+   - https://da-nyee.github.io/posts/audio-how-to-trim-audio-data-with-librosa/
+
+   - https://pytorch.org/tutorials/beginner/audio_preprocessing_tutorial.html#audio-i-o
+
+   - https://pytorch.org/tutorials/beginner/audio_preprocessing_tutorial.html#controling-resampling-quality-with-parameters
+
+
+
+   *사용할수 있는 음성라이브러리들
+
+   - soundfile, pydub, ffmpeg librosa, torchaudio, scipy.io 등
+
+
+ 1. Text rank 관련 라이브러리를 이용한 키워드 추출, 요약 시도하기
+
+   - TextRank를 이용한 키워드 추출과 핵심문장 추출(구현과 실험) : https://lovit.github.io/nlp/2019/04/30/textrank/
+
+   - gensim라이브러리의 요약기능 사용하기: https://velog.io/@seolini43/%ED%8C%8C%EC%9D%B4%EC%8D%AC-TextRank%ED%85%8D%EC%8A%A4%ED%8A%B8%EB%9E%AD%ED%81%AC%EB%9E%80..-%EA%B0%84%EB%8B%A8%ED%95%98%EA%B2%8C-%EA%B5%AC%ED%98%84%ED%95%B4%EB%B3%B4%EA%B8%B0
+
+   - 간단한 TextRank 실제 구현해보기: https://excelsior-cjh.tistory.com/93
+
+   - 영문  github: https://github.com/davidadamojr/TextRank
+
+
+ 2. 아래의 절차에 따라 자신의 github/blog에 정리하기
+
+  - 1)의 사이트를 참고하여 자신이 따라할 text rank기반의 tutorial을 추가로 찾기.
+
+  - 최대한 자신이 이해하는 수준의 코드를 선택하여 주요 함수 및 로직에 주석을 달면서 이해하기
+
+  - 기존 과제에서 수집한 긴 뉴스/문서/논문을 대상으로 키워드 추출 및 요약을 수행하기
+
+   (오래된 코드들에서 생기는 version관련 에러는 스스로 해결하기)
+
+  - 추출된 키워드 및 요약의 품질에 대해 간단한 소감을 기술하기.
+
+
+
+    GPT4-turbo
+
+      : https://openai.com/blog/new-models-and-developer-products-announced-at-devday
+
+      : https://eightify.app/ko/summary/artificial-intelligence-and-technology/revolutionary-gpt4-turbo-openai-s-api-advancements-generative-ai
+
+      : https://www.youtube.com/watch?v=KmhSv-Un1_c
+
+      : https://www.aitimes.kr/news/articleView.html?idxno=29310
+
+      : https://platform.openai.com/docs/assistants/overview
+
+https://dunoit.com/blogs/gpts-654f68bf26d19?fbclid=IwAR2_oIBoSbAilpJMS1bVlvXrTeFTfEoUlPIOtrA1qbW0Uu_g_1NuJwk6gOw
+
+table형식의 데이터는 img형식으로
+elasticsearch
+
+ms mvp
+vectordb re-indexing
