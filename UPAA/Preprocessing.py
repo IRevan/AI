@@ -1,106 +1,46 @@
-import os
 import pandas as pd
-import olefile
-import zlib
-import struct
+from konlpy.tag import Mecab
+import os
+import re
 
-path = "./data/"
-file_list = os.listdir(path)
-file_list_hwp = [file for file in file_list if file.endswith(".hwp")]
-file_list_hwp.sort()
+path = "./data2/"
+file_paths = os.listdir(path)
+file_paths.sort()
 
-sr_hwp = pd.Series(file_list_hwp)
+# 출력 파일 경로
+output_file_path = 'data3/merged_output.txt'
 
-class HWPExtractor(object):
-    FILE_HEADER_SECTION = "FileHeader"
-    HWP_SUMMARY_SECTION = "\x05HwpSummaryInformation"
-    SECTION_NAME_LENGTH = len("Section")
-    BODYTEXT_SECTION = "BodyText"
-    HWP_TEXT_TAGS = [67]
+# 파일 합치기
+with open(output_file_path, 'w', encoding='utf-8') as output_file:
+    for file_path in file_paths:
+        with open(path + file_path, 'r', encoding='utf-8') as input_file:
+            content = input_file.read()
+            output_file.write(content)
+            # 다른 파일들 사이에 줄 바꿈 추가 (선택사항)
+            output_file.write('\n\n')
 
-    def __init__(self, filename):
-        self._ole = self.load(filename)
-        self._dirs = self._ole.listdir()
+def regex(file_path, output_path):
+    with open(file_path, 'r', encoding='utf-8') as input_file:
+        content = input_file.read()
+        cleaned_content = re.sub(r'<[^>]+>', '', content)
+        cleaned_content = re.sub(r'氠瑢\s*', '', cleaned_content)
+        cleaned_content = re.sub(r'\[[^\]]*\]', '', cleaned_content)
+        cleaned_content = re.sub(r'\([^)]*\)', '', cleaned_content)
+    with open(output_path, 'w', encoding='utf-8') as output_file:
+        output_file.write(cleaned_content)
 
-        self._valid = self.is_valid(self._dirs)
-        if (self._valid == False):
-            raise Exception("Not Valid HwpFile")
+# 사용 예시
+input_path = 'data3/merged_output.txt'
+output_path = 'data3/cleaned_output.txt'
+regex(input_path, output_path)
 
-        self._compressed = self.is_compressed(self._ole)
-        self.text = self._get_text()
+mecab = Mecab()
+with open('data3/cleaned_output.txt', 'r', encoding='utf-8') as file:
+    text = file.read()
 
-    # 파일 불러오기
-    def load(self, filename):
-        return olefile.OleFileIO(filename)
+x = mecab.nouns(text)
+sr = pd.DataFrame(x)
+sr = sr.drop_duplicates()
+sr.columns = ['noun']
 
-    # hwp 파일인지 확인 header가 없으면 hwp가 아닌 것으로 판단하여 진행 안함
-    def is_valid(self, dirs):
-        if [self.FILE_HEADER_SECTION] not in dirs:
-            return False
-
-        return [self.HWP_SUMMARY_SECTION] in dirs
-
-    # 문서 포맷 압축 여부를 확인
-    def is_compressed(self, ole):
-        header = self._ole.openstream("FileHeader")
-        header_data = header.read()
-        return (header_data[36] & 1) == 1
-
-    # bodytext의 section들 목록을 저장
-    def get_body_sections(self, dirs):
-        m = []
-        for d in dirs:
-            if d[0] == self.BODYTEXT_SECTION:
-                m.append(int(d[1][self.SECTION_NAME_LENGTH:]))
-
-        return ["BodyText/Section" + str(x) for x in sorted(m)]
-
-    # text를 뽑아내는 함수
-    def get_text(self):
-        return self.text
-
-    # 전체 text 추출
-    def _get_text(self):
-        sections = self.get_body_sections(self._dirs)
-        text = ""
-        for section in sections:
-            text += self.get_text_from_section(section)
-            text += "\n"
-
-        self.text = text
-        return self.text
-
-    # section 내 text 추출
-    def get_text_from_section(self, section):
-        bodytext = self._ole.openstream(section)
-        data = bodytext.read()
-
-        unpacked_data = zlib.decompress(data, -15) if self.is_compressed else data
-        size = len(unpacked_data)
-
-        i = 0
-
-        text = ""
-        while i < size:
-            header = struct.unpack_from("<I", unpacked_data, i)[0]
-            rec_type = header & 0x3ff
-            level = (header >> 10) & 0x3ff
-            rec_len = (header >> 20) & 0xfff
-
-            if rec_type in self.HWP_TEXT_TAGS:
-                rec_data = unpacked_data[i + 4:i + 4 + rec_len]
-                text += rec_data.decode('utf-16')
-                text += "\n"
-
-            i += 4 + rec_len
-
-        return text
-
-
-# text 추출 함수 -> 이 함수를 사용하면 됨
-def get_text(filename):
-    hwp = HWPExtractor(filename)
-    return hwp.get_text()
-
-f = get_text(path + sr_hwp[0])
-print(f)
+sr.to_csv('noun.csv', index=False, encoding='utf-8')
