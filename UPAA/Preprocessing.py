@@ -16,14 +16,12 @@ with open(output_file_path, 'w', encoding='utf-8') as output_file:
         with open(path + file_path, 'r', encoding='utf-8') as input_file:
             content = input_file.read()
             output_file.write(content)
-            # 다른 파일들 사이에 줄 바꿈 추가 (선택사항)
             output_file.write('\n\n')
 
 def regex(file_path, output_path):
     with open(file_path, 'r', encoding='utf-8') as input_file:
         content = input_file.read()
         cleaned_content = re.sub(r'<[^>]+>', '', content)
-        cleaned_content = re.sub(r'氠瑢\s*', '', cleaned_content)
         cleaned_content = re.sub(r'\[[^\]]*\]', '', cleaned_content)
         cleaned_content = re.sub(r'\([^)]*\)', '', cleaned_content)
     with open(output_path, 'w', encoding='utf-8') as output_file:
